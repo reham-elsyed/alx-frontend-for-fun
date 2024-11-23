@@ -1,0 +1,26 @@
+/* Write a Sass file that sorts the variable $list_to_sort and prints the sorted list in the debug output. */
+@import '103-sort_list.scss';
+
+/* Bubble Sort Function */
+@function sort-list($list) {
+  $length: length($list);
+  @for $i from 1 through $length {
+    @for $j from 1 through ($length - $i) {
+      $current: nth($list, $j);
+      $next: nth($list, $j + 1);
+      @if $current > $next {
+        $list: set-nth($list, $j, $next);
+        $list: set-nth($list, $j + 1, $current);
+      }
+    }
+  }
+  @return $list;
+}
+
+/* Sort the list */
+$sorted_list: sort-list($list_to_sort);
+
+/* Debug Output */
+@each $name in $sorted_list {
+  @debug $name;
+}
